@@ -1,0 +1,6 @@
+{
+  "required": [
+    "Training/",
+    "Testing/"
+  ]
+}

@@ -1,10 +1,47 @@
+# Brain MRI classifier comparison
 
-# Classification of Brain Tumor MRI Scans using Deep Learning Models
+Compares fine-tuned EfficientNetB0 and MobileNetV3Small classifiers for four MRI classes.
 
-In this project, we used images of brain MRI scans from human subjects to predict whether they had brain tumor and if so what kind of brain tumor.
+## Setup and execution
 
+Use Python 3.11 and a separate virtual environment for this project. Run commands from this folder:
 
-## Authors
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python check_inputs.py
+python -m jupyterlab
+```
+
+On Windows, activate with `.venv\Scripts\activate`. For notebooks, select this environment’s kernel and execute from the top in a fresh kernel. The first code cell exposes `INPUT_PATHS` where old machine-specific paths existed. `PROJECT_DATA_DIR` changes the base for those configured paths; remaining relative paths use the notebook working directory.
+
+## Notebooks
+
+- [Comparison_Notebook_EfficientNetB0_MobileNetV3Small.ipynb](Comparison_Notebook_EfficientNetB0_MobileNetV3Small.ipynb)
+
+## Inputs
+
+Supply these inputs yourself; no dataset is downloaded automatically:
+
+- `Training/`
+- `Testing/`
+
+## Outputs
+
+Trained Keras models, TensorBoard/checkpoint files, learning curves, confusion matrices, and reports.
+
+## Implementation and limitations
+
+Supply class subdirectories under Training/ and Testing/. Class labels must agree between splits. If using the extraction cell, also supply archive.zip, or skip that cell for already extracted images. ImageNet weights may be downloaded by Keras when building the original backbones. Local helper_functions.py replaces downloaded executable Python. Historical README accuracy claims have not been rerun; retain a separate validation split before claiming final test performance.
+
+Reusable model/analysis functions live in `experiment_comparison_notebook_efficientnetb0_mobilenetv3small.py`. Notebooks retain the experiment sequence, training, and visual narrative.
+
+## Verification
+
+The workspace regression suite checks source/notebook validity and selected behavior with bundled or synthetic inputs. Full experiment training and historical metric reproduction are not implied. See the workspace `REFACTOR_REPORT.md` for exact test coverage and unresolved runtime requirements.
+
+## Original authors
 
 As part of our undergrad thesis project at AUST, this project was done by -
 
@@ -13,31 +50,10 @@ As part of our undergrad thesis project at AUST, this project was done by -
 - Kazi Akhir Mahmud
 - Saiem Intesar Tamzid
 
+## Original references
 
-## Dataset
+These links were retained from the original project notes; availability and licensing must be checked by the person obtaining the data.
 
-Dataset Link - [Brain Tumor MRI Scan Dataset](https://www.kaggle.com/sartajbhuvaji/brain-tumor-classification-mri)
-
-The dataset was created by Sartaj Bhuvaji, Ankita Kadam, Prajakta Bhumkar, and Sameer Dedge to create an automated system in the Cloud that can detect tumors.
-The dataset contains training and testing folders each of which has 4 classes of brain MRI scan images of jpeg format. The classes are:
-- Glioma Tumor
-- Meningioma Tumor
-- No Tumor 
-- Pituitary Tumor
-
-The number of training and test images in each are:
-- Glioma Tumor (train - 826, test - 100)
-- Meningioma Tumor (train - 822, test -	115)
-- No Tumor	(train - 395, test - 105)
-- Pituitary Tumor	(train - 827, test - 74)
-
-
-## Methodology
-
-In our project, we applied transfer learning. We took two prebuilt models from the Keras Applications library and fine-tuned the models making all the layers fully trainable. We took the models EfficientNetB0 and MobileNetV3Small. EfficientNetB0 has 236 layers, all of which were made trainable. MobileNetV3Small has 234 layers, all of which were made trainable same as EfficientNetB0. EfficientNetB0 has almost 4 million parameters and MobileNetV3Small has around 1.5 million parameters. What this means is that the network architectures will remain the same but the weights and biases of the neurons of each layer will change based on the training it will go through on our dataset. 
-
-We found that the EfficientNetB0 model got an overall accuracy of 76.14% on the test dataset. On the other hand, the MobileNetV3Small model got an overall accuracy of 73.35% on the test dataset.
-## Conclusion
-
-From the confusion matrix, we came to know that the EfficientNetB0 model had greater True Positives for 3 of the 4 classes. However, the F_1 scores for No Tumor and Pituitary Tumor classes are higher for the MobileNetV3Small model and the F_1 scores for Glioma Tumor and Meningioma Tumor classes are higher for the EfficientNetB0 model. The model size for the EfficientNetB0 model came to 47 MB while the model size for MobileNetV3Small came to only 18.1 MB. The EfficientNetB0 model got an overall accuracy of 76.14% on the test dataset. On the other hand, the MobileNetV3Small model got an overall accuracy of 73.35% on the test dataset. Although the EfficientNetB0 model got a greater accuracy, it is by a very small margin. Less than 3% better. We can take this as a tradeoff and conclude that MobileNetV3Small is a better model to use in real-world applications due its smaller size but very little trade-off in accuracy to EfficientNetB0. 
-We got a brief overview of the evaluation metrics, our results and lastly, we concluded which network will work better in real life.
+- https://www.github.com/mansibm6
+- https://github.com/Ashowmick
+- https://www.kaggle.com/sartajbhuvaji/brain-tumor-classification-mri
